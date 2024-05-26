@@ -1,0 +1,68 @@
+Atividade 01 - 
+
+SELECT v.codVendedor, v.nome, v.endereco, c.nome, c.siglaEstado
+FROM vendedor as v, cidade as c where c.codCidade = v.codVendedor;
+
+=================================================
+
+Atividade 02 -
+
+SELECT v.codVenda, v.dataVenda,v.status, v1.nome
+FROM venda as v, vendedor as v1 
+WHERE v.codVenda = v1.codVendedor AND status = 'despachada';
+
+=================================================
+
+Atividade 03 - 
+
+SELECT cf.nome, c.endereco
+FROM clienteFisico as cf, cliente as c 
+WHERE c.codCliente = cf.codCliente AND endereco = 'Rua Marechal Floriano, 56';
+
+=================================================
+
+Atividade 04 - 
+
+SELECT * 
+FROM cliente as c, clienteJuridico as f
+WHERE c.codCliente = f.codCliente;
+
+=================================================
+
+Atividade 05 - 
+
+SELECT f.nomeFantasia, c.endereco, c.telefone, ct.nome, ct.siglaEstado
+FROM clienteJuridico as f, cliente as c, cidade as ct 
+
+WHERE (f.codCliente = c.codCliente and ct.codCidade = f.codCliente) 
+and 
+DATE (c.dataCadastro > '1999-01-01' and c.dataCadastro < '2003-06-30')
+
+=================================================
+
+Atividade 06 - 
+
+SELECT cj.nomeFantasia, v.nome
+FROM clienteJuridico as cj, vendedor as v, venda as ve, cliente as cl
+WHERE cj.codCliente = ve.codCliente = cl.codCliente and ve.codVendedor = v.codVendedor and cj.nomeFantasia = 'Gelinski';
+
+=================================================
+
+Atividade 07 - 
+
+SELECT pl.codProduto, pl.numeroLote, p.descricao, pl.dataValidade
+FROM produtoLote as pl, produto as p
+WHERE pl.codProduto = p.codProduto AND 
+pl.dataValidade < curdate();
+
+=================================================
+
+Atividade 08 - 
+
+SELECT cj.nomeFantasia, v.nome
+FROM clienteJuridico as cj, vendedor as v, venda as ve, cliente as cl
+WHERE cj.codCliente = ve.codCliente = cl.codCliente and ve.codVendedor = v.codVendedor and cj.nomeFantasia = 'Gelinski';
+
+SELECT d.codDepartamento, d.nome, v.nome
+FROM departamento as d, vendedor as v
+where d.codDepartamento = v.codDepartamento;

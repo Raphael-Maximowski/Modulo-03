@@ -1,0 +1,175 @@
+
+Atividade 01 - 
+
+CREATE TABLE clienteFisico
+(
+    codCliente INT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    dataNascimento DATE,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    rg VARCHAR(8),
+    FOREIGN KEY (codCliente) REFERENCES cliente (codCliente) ON DELETE no action ON UPDATE cascade
+);
+
+================================================
+
+Atividade 02 - 
+
+CREATE TABLE clienteJuridico
+(
+    codCliente BIGINT PRIMARY KEY,
+    nomeFantasia VARCHAR(80) UNIQUE,
+    razaoSocial VARCHAR(80) UNIQUE NOT NULL,
+    ie VARCHAR(20) NOT NULL UNIQUE,
+    cgc VARCHAR(20) UNIQUE NOT NULL,
+    FOREIGN KEY (codCliente) REFERENCES cliente (codCliente) ON DELETE no action ON UPDATE cascade
+);
+
+================================================]
+
+Atividade 03 - 
+
+CREATE TABLE produto
+(
+    codProduto INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(40) NOT NULL ,
+    unidadeMedida CHAR(2),
+    embalagem VARCHAR(15) DEFAULT ("Fardo"),
+    codClasse INT,
+    precoVenda DECIMAL(14,2),
+    estoqueMinimo DECIMAL(14,2),
+    FOREIGN KEY (codClasse) REFERENCES classe (codClasse)ON UPDATE SET null
+);
+
+================================================
+
+Atividade 04 -
+
+CREATE TABLE produtoLote
+(
+    codProduto INT,
+    numeroLote INT,
+    quantidadeAdquirida DECIMAL(14,2),
+    quantidadeVendida DECIMAL(14,2),
+    precoCusto DECIMAL(14,2),
+    dataValidade DATE,
+    PRIMARY KEY (codProduto, numeroLote),
+    FOREIGN KEY (codProduto) REFERENCES produto (codProduto) ON DELETE cascade ON UPDATE cascade
+);
+
+================================================
+
+Atividade 05 - 
+
+CREATE TABLE venda
+(
+    codVenda INT PRIMARY KEY,
+    codCliente BIGINT,
+    codVendedor BIGINT,
+    dataVenda DATE DEFAULT(CURDATE()),
+    enderecoEntrega VARCHAR(60),
+    status VARCHAR(30),
+
+    FOREIGN KEY (codCliente) REFERENCES cliente (codCliente) ON DELETE CASCADE ON UPDATE NO ACTION,
+    FOREIGN KEY (codVendedor) REFERENCES vendedor (codVendedor) ON DELETE SET DEFAULT ON UPDATE CASCADE
+);
+
+================================================
+
+Atividade 06 - 
+
+CREATE TABLE itemVenda
+(
+    codVenda INT,
+    codProduto INT,
+    numeroLote INT,
+    quantidade DECIMAL(14,2),
+    PRIMARY KEY (codVenda, codProduto, numeroLote),
+    FOREIGN KEY (codProduto, numeroLote) REFERENCES produtoLote (codProduto, numeroLote) ON DELETE restrict ON UPDATE cascade,
+    FOREIGN KEY (codVenda) REFERENCES venda (codVenda) ON DELETE cascade ON UPDATE cascade
+);
+
+================================================
+
+Atividade 07 - 
+
+CREATE TABLE fornecedor
+(
+    codFornecedor INT PRIMARY KEY,
+    nomeFantasia VARCHAR(80) UNIQUE,
+    razaoSocial VARCHAR(80) UNIQUE NOT NULL,
+    ie VARCHAR(20) NOT NULL UNIQUE,
+    cgc VARCHAR(20) UNIQUE NOT NULL,
+    endereco VARCHAR(60),
+    telefone VARCHAR(20),
+    codCidade INT,
+    FOREIGN KEY (codCidade) REFERENCES cidade (codCidade) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+================================================
+
+Atividade 08 - 
+
+CREATE TABLE pedido
+(
+    codPedido INT PRIMARY KEY AUTO_INCREMENT,
+    dataRealizacao DATE DEFAULT (CURDATE()),
+    dataEntrega DATE,
+    codFornecedor INT,
+    valor DECIMAL (20,2),
+    FOREIGN KEY (codFornecedor) REFERENCES fornecedor (codFornecedor) ON DELETE CASCADE ON UPDATE SET NULL
+);
+
+================================================
+
+Atividade 09 - 
+
+CREATE TABLE itempedido
+(
+    codPedido INT,
+    codProduto INT,
+    quantidade DECIMAL (14,2) NOT NULL CHECK (quantidade > 0),
+    PRIMARY KEY (codPedido, codProduto),
+    FOREIGN KEY (codPedido) REFERENCES pedido (codPedido) ON DELETE cascade ON UPDATE cascade,
+    FOREIGN KEY (codProduto) REFERENCES produto (codProduto)
+);
+
+================================================
+
+Atividade 10 - 
+
+CREATE TABLE contasPagar
+(
+    codTitulo INT PRIMARY KEY,
+    dataVencimento DATE NOT NULL,
+    parcela INT,
+    codPedido INT,
+    valor DECIMAL (20,2),
+    dataPagamento DATE,
+    localPagamento VARCHAR(80),
+    juros DECIMAL(12,2),
+    correcaoMonetaria DECIMAL(12,2),
+    FOREIGN KEY (codPedido) REFERENCES pedido (codPedido) ON UPDATE cascade ON DELETE cascade
+);
+
+================================================
+
+Atividade 11 -
+
+CREATE TABLE contasReceber
+(
+    codTitulo INT PRIMARY KEY,
+    dataVencimento DATE NOT NULL,
+    codVenda INT NOT NULL,
+    parcela INT,
+    valor DECIMAL(20,2),
+    dataPagamento DATE,
+    localPagamento VARCHAR(80),
+    juros DECIMAL(12,2),
+    correcaoMonetaria DECIMAL(12,2),
+    FOREIGN KEY (codVenda) REFERENCES venda (codVenda) ON DELETE cascade ON UPDATE cascade
+);
+
+
+
+

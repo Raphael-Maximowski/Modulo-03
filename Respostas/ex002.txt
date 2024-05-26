@@ -1,0 +1,41 @@
+Atividade 01 -
+
+SELECT * FROM produto;
+
+==================================================================================
+
+Atividade 02 - 
+
+SELECT codFornecedor, nomeFantasia, endereco, telefone, codCidade FROM fornecedor;
+
+==================================================================================
+
+Atividade 03 - 
+
+SELECT codVenda, dataVenda FROM venda WHERE status = "Despachada";
+
+==================================================================================
+
+Atividade 04  -
+
+SELECT * FROM clienteJuridico;
+
+==================================================================================
+
+Atividade 05 - 
+
+SELECT numeroLote FROM produtoLote WHERE dataValidade < CURDATE(); 
+
+==================================================================================
+
+Atividade 06 - 
+
+SELECT nome FROM departamento;
+
+
+
+
+
+
+
+

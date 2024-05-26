@@ -1,0 +1,80 @@
+Atividade 01 -
+
+SELECT p.codPedido, p.dataRealizacao, p.dataEntrega, f.nomeFantasia                                               
+FROM pedido AS p    
+NATURAL JOIN fornecedor  AS f
+WHERE YEAR(p.dataRealizacao) = 2014;
+
+=================================================
+
+Atividade 02 - 
+
+SELECT v.nome, v.dataNascimento, c.nome 
+FROM vendedor AS v
+INNER JOIN cidade AS c ON v.codCidade = c.codCidade  
+WHERE c.nome = 'Apucarana';                                                                                                              
+
+=================================================
+
+Atividade 03 -
+
+SELECT v.codVenda, v.dataVenda, v1.nome, iv.numeroLote, p.descricao
+FROM venda AS v
+NATURAL JOIN vendedor AS v1
+NATURAL JOIN produto AS p
+NATURAL JOIN itemVenda AS iv
+WHERE p.descricao = 'Cal';
+
+=================================================
+
+Atividade 04 - 
+
+SELECT c.sigla, c.nome, p.codProduto, p.Descricao, p.estoqueMinimo
+FROM classe AS c
+NATURAL JOIN produto AS p
+WHERE c.nome = 'Acabamentos';
+
+=================================================
+
+Atividade 05 - 
+
+SELECT f.nomeFantasia, p.codPedido, p.dataRealizacao, p.dataEntrega
+FROM fornecedor AS f
+JOIN pedido AS p ON f.codFornecedor = p.codFornecedor
+WHERE f.nomeFantasia = 'Incepa';
+
+=================================================
+
+Atividade 06 -
+
+SELECT p.codProduto, p.descricao, v.codVenda
+FROM produto AS p
+LEFT JOIN itemVenda ON p.codProduto = itemVenda.codProduto
+LEFT JOIN venda AS v ON itemVenda.codVenda = v.codVenda;
+
+=================================================
+
+Atividade 07 - 
+
+SELECT f.nomeFantasia, p.codPedido, p.dataEntrega
+FROM fornecedor AS f
+LEFT JOIN pedido AS p ON f.codFornecedor = p.codFornecedor;
+
+=================================================
+
+Atividade 08 - 
+
+SELECT d.nome, d.localizacao, v.nome, v.dataNascimento
+FROM vendedor AS v
+RIGHT JOIN departamento AS d ON v.codDepartamento = d.codDepartamento;
+
+=================================================
+
+
+
+
+
+
+
+
+

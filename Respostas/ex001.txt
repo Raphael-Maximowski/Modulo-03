@@ -1,0 +1,196 @@
+
+Atividade 01 -
+
+CREATE TABLE tabela_departamento 
+(
+codDepartamento INT PRIMARY KEY  auto_increment,
+nome VARCHAR(40) UNIQUE NOT NULL,
+descricaoFuncional VARCHAR(80),
+localizao VARCHAR(999)
+);
+
+===================================================
+
+Atividade 02 - 
+
+CREATE TABLE tabela_estado 
+(
+siglaEstado CHAR(2),
+nome VARCHAR(30) UNIQUE NOT NULL
+);
+
+===================================================
+
+Atividade 03 -
+
+CREATE TABLE tabela_cidade
+(
+codCidade INT PRIMARY KEY  auto_increment,
+nome VARCHAR(50) UNIQUE NOT NULL,
+siglaEstado CHAR(2) NOT NULL
+);
+
+===================================================
+
+Atividade 04 - 
+
+CREATE TABLE tabela_vendedor
+(
+codVendedor INT PRIMARY KEY auto_increment,
+nome VARCHAR(60) NOT NULL,
+dataNascimento DATE,
+endereco VARCHAR(60),
+cep CHAR (8),
+telefone VARCHAR(20),
+codCidade INT ,
+dataContratacao DATE DEFAULT(CURDATE()),
+codDepartamento INT
+);
+
+===================================================
+
+Atividade 05 - 
+
+CREATE TABLE tabela_cliente
+(
+codCliente INT PRIMARY KEY auto_increment,
+endereco VARCHAR(60),
+codCidade INT NOT NULL,
+telefone VARCHAR(20),
+tipo CHAR(1) CHECK (tipo in ('F', 'J')),
+dataCadastro DATE DEFAULT (curdate()),
+cep CHAR(8)
+);
+
+===================================================
+
+Atividade 06 - 
+
+CREATE TABLE tabela_clienteFisico
+(
+    codCliente INT,
+    nome VARCHAR(50) NOT NULL,
+    dataNascimento DATE,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
+    rg VARCHAR(8)
+);
+
+===================================================
+
+Atividade 07 - 
+
+CREATE TABLE tabela_clienteJuridico
+(
+    codCliente INT,
+    nomeFantasia VARCHAR(80) UNIQUE,
+    razaoSocial VARCHAR(80) UNIQUE NOT NULL,
+    ie VARCHAR(20) NOT NULL UNIQUE,
+    cgc VARCHAR(20) UNIQUE NOT NULL
+);
+
+===================================================
+
+Atividade 08 - 
+
+CREATE TABLE tabela_classe
+(
+    codClasse INT PRIMARY KEY AUTO_INCREMENT,
+    sigla VARCHAR(12),
+    nome VARCHAR(40) NOT NULL,
+    descricao VARCHAR(80)
+);
+
+===================================================
+
+Atividade 09 - 
+
+CREATE TABLE tabela_produto
+(
+    codProduto INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(40) NOT NULL,
+    unidadeMedida CHAR(2),
+    embalagem VARCHAR(15) DEFAULT 'Fardo',
+    codClasse INT,
+    precoVenda DECIMAL(14,2),
+    estoqueMinimo DECIMAL(14,2)
+);
+
+===================================================
+
+Atividade 10 -
+
+CREATE TABLE tabela_produtoLote
+(
+	codProduto INT,
+    numeroLote INT,
+    quantidadeAdquirida DECIMAL(14,2),
+    quantidadeVendida DECIMAL(14,2),
+    precoCusto DECIMAL(14,2), 
+    dataValidade DATE
+);
+
+===================================================
+
+Atividade 11 -
+
+CREATE TABLE tabela_venda
+(
+    codVenda INT,
+    codCliente INT,
+    codVendedor INT,
+    dataVenda DATE DEFAULT (CURDATE()),
+    enderecoEntrega VARCHAR(60),
+    Statuss VARCHAR(30)
+);
+
+===================================================
+
+Atividade 12 - 
+
+CREATE TABLE itemVenda
+(
+    codVenda INT,
+    codProduto INT,
+    numeroLote INT,
+    quantidade DECIMAL (14,2) NOT NULL CHECK(quantidade > 0)
+);
+
+===================================================
+
+Atividade 13 - 
+
+CREATE TABLE tabela_fornecedor
+(
+    codFornecedor INT,
+    nomeFantasia VARCHAR(80) UNIQUE,
+    razaoSocial VARCHAR(80) UNIQUE NOT NULL,
+    ie VARCHAR(20) NOT NULL UNIQUE,
+    cgc VARCHAR(20) UNIQUE NOT NULL,
+    endereco VARCHAR(60),
+    telefone VARCHAR(20),
+    codCidade INT
+);
+
+===================================================
+
+Atividade 14 -
+
+CREATE TABLE tabela_pedido
+(
+    codPedido INT PRIMARY KEY AUTO_INCREMENT,
+    dataRealizacao DATE DEFAULT (CURDATE()),
+    dataEntrega DATE,
+    codFornecedor INT,
+    valor DECIMAL (20,2)
+);
+
+===================================================
+
+Atividade 15 -
+
+CREATE TABLE itemPedido
+(
+    codPedido INT,
+    codProduto INT,
+    quantidade DECIMAL(14,2) NOT NULL CHECK(quantidade > 0)
+);
